@@ -1,0 +1,44 @@
+<resources>
+    <string name="app_name">RSR Revalidatieservice</string>
+    <string name="background_image">background_image</string>
+    <string name="intro_im">intro_im</string>
+    <string name="splash_logo">splash_logo</string>
+    <string name="splash_logo_rsr">splash_logo_rsr</string>
+    <string name="action_info">action_info</string>
+    <string name="main_btn_txt">RSR Pechhulp</string>
+    <string name="dialing_button">Bel RSR nu</string>
+    <string name="location_title">Uw Locatie:</string>
+    <string name="address_info">R.Cap. Aresta 200,4440/452 \n\t\t\tValongo, Portugal</string>
+    <string name="location_info">Onthoud deze locatie voor het telefoongesprek</string>
+
+    <!-- Android labels-->
+    <string name="activityInfo_class">Over RSR</string>
+    <string name="activityMap_class">RSR Pechhulp</string>
+
+    <!-- Information about this app !-->
+    <string name="info_txt">Met de hulpmiddelen van RSR blijft u mobiel. RSR is dé leverancier van
+        hulpmiddelen in de regio Noordoost-Nederland. Gedegen kennis en jarenlange ervaring zit in
+        ons DNA verweven en leidt tot het beste advies.\n\nWilt u meer weten over onze producten en
+        diensten, kijk dan op <a href="http://www.rsr.nl/">www.rsr.nl</a> of bezoek onze showrooms
+        in Silvolde en Nieuwleusen.
+        We zijn iedere werkdag geopend van 8.00 tot 17.00 uur. Hier kunt u diverse hulpmiddelen
+        uitproberen en rustig bekijken wat goed bij uw situatie aansluit. Samen met u zoeken we
+        naar het hulpmiddel dat bij u past. RSR maakt mensen mobiel.</string>
+    <string name="info_background_im">info_background_im</string>
+
+    <!-- Alert dialog messages !-->
+    <string name="alert_dialog_title">No internet connection</string>
+    <string name="gps_not_enabled">Your GPS service is not enable, please turn on your location!</string>
+    <string name="location_settings">Open your location settings!</string>
+    <string name="alert_dialog_message">Turn on your Wi-Fi or Mobile Data to access this service.
+        Press OK to confirm</string>
+    <string name="negative_button">Cancel</string>
+    <string name="positive_button">OK</string>
+
+    <!-- Popup dialog strings !-->
+    <string name="cancel_popul_btn">Annuleren</string>
+    <string name="dialog_title">Belkosten</string>
+    <string name="dialog_content">Voor dit nummer betaalt u uw \n \t\tgebruikelijke belkosten.</string>
+    <string name="dialog_calling_btn">Bel nu</string>
+
+</resources>

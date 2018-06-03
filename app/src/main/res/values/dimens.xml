@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="buttons_margin_bottom">16dp</dimen>
+    <dimen name="buttons_margin_start">40dp</dimen>
+    <dimen name="buttons_margin_end">20dp</dimen>
+    <dimen name="drawable_padding">2dp</dimen>
+    <dimen name="buttons_padding_end">10dp</dimen>
+    <dimen name="buttons_padding_start">20dp</dimen>
+    <dimen name="widget_elevation">4dp</dimen>
+    <dimen name="info_view_layout_height">4dp</dimen>
+    <dimen name="info_textview_padding">16dp</dimen>
+    <dimen name="dialog_textview_padding">16dp</dimen>
+    <dimen name="dialog_texview_padding_start">16dp</dimen>
+    <dimen name="dialog_textview_padding_end">16dp</dimen>
+    <dimen name="dialog_textview_padding_top">16dp</dimen>
+</resources>

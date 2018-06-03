@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.android.rsrrevalidatieservicecopy">
+
+    <!-- Provides better and accurate locations. -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
+    <!-- Provides less accurate locations. -->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+
+    <!-- Allowing an application to initiate a phone call without going through the Dialer UI -->
+    <uses-permission android:name="android.permision.CALL_PHONE">
+
+    </uses-permission>
+
+    <!-- Allows applications to open network sockets. -->
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <!-- Allows applications to access information about networks -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <!-- Allows applications to access information about Wi-Fi networks. -->
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+
+    <!-- Allows an application to write to external storage. -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/google_maps_key" />
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+
+        <activity
+            android:name=".ActivitySplash"
+            android:theme="@style/IntroPage">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".MainActivity"
+            android:screenOrientation="portrait" />
+
+        <!-- A child of the main activity -->
+        <activity
+            android:name=".ActivityInfo"
+            android:label="@string/activityInfo_class"
+            android:parentActivityName=".MainActivity"
+            android:screenOrientation="portrait" />
+        <!-- Parent activity meta-data to support 4.0 and lower -->
+        <meta-data
+            android:name="android.support.PARENT_ACTIVITY"
+            android:value="com.example.android.rsrrevalidatieservicecopy.MainActivity" />
+
+        <!-- A child of the main activity -->
+        <activity
+            android:name=".ActivityMap"
+            android:label="@string/activityMap_class"
+            android:parentActivityName=".MainActivity"
+            android:screenOrientation="portrait" />
+        <!-- Parent activity meta-data to support 4.0 and lower -->
+        <meta-data
+            android:name="android.support.PARENT_ACTIVITY"
+            android:value="com.example.android.rsrrevalidatieservicecopy.MainActivity" />
+    </application>
+</manifest>
