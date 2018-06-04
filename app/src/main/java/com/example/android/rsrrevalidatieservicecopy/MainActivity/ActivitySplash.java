@@ -1,4 +1,4 @@
-package com.example.android.rsrrevalidatieservicecopy;
+package com.example.android.rsrrevalidatieservicecopy.MainActivity;
 
 
 import android.content.Intent;
@@ -7,6 +7,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
+
+import com.example.android.rsrrevalidatieservicecopy.R;
 
 // Creating a nea class in order to provide the splash screen animation
 public class ActivitySplash extends AppCompatActivity {

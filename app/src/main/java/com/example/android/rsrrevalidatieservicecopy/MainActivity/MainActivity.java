@@ -1,4 +1,4 @@
-package com.example.android.rsrrevalidatieservicecopy;
+package com.example.android.rsrrevalidatieservicecopy.MainActivity;
 
 
 import android.Manifest;
@@ -19,6 +19,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
+import com.example.android.rsrrevalidatieservicecopy.InformationAboutRsr.ActivityInfo;
+import com.example.android.rsrrevalidatieservicecopy.MapFeatures.ActivityMap;
+import com.example.android.rsrrevalidatieservicecopy.R;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 
@@ -30,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        showGPSAlert(MainActivity.this);
+
         Button button = findViewById(R.id.RSR_btn);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -39,38 +42,6 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-    }
-
-    // Show Alert Dialog to enable GPS
-    protected void showGPSAlert(final Context context) {
-        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
-
-        // Check if location services are enabled
-        String locationProvider = Settings.Secure.getString(getContentResolver(),
-                Settings.Secure.LOCATION_PROVIDERS_ALLOWED);
-        if (locationProvider == null || locationProvider.equals("")) {
-            alertDialogBuilder.setMessage("GPS is disabled on your device. Would you like to enable it")
-                    .setCancelable(false).setPositiveButton("Open Settings",
-                    new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-
-                            // Calling an intent to perform an activity in order to open source settings
-                            Intent callGPSSettingIntent = new Intent(Settings.
-                                    ACTION_LOCATION_SOURCE_SETTINGS);
-                            context.startActivity(callGPSSettingIntent);
-                        }
-                    });
-            alertDialogBuilder.setNegativeButton(R.string.negative_button,
-                    new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            dialog.cancel();
-                        }
-                    });
-            AlertDialog alert = alertDialogBuilder.create();
-            alert.show();
-        }
     }
 
     @Override

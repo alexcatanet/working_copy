@@ -1,4 +1,4 @@
-package com.example.android.rsrrevalidatieservicecopy;
+package com.example.android.rsrrevalidatieservicecopy.Adapter;
 
 
 import android.content.Context;
@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.example.android.rsrrevalidatieservicecopy.R;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.Marker;
 

@@ -5,9 +5,9 @@
     <string name="splash_logo">splash_logo</string>
     <string name="splash_logo_rsr">splash_logo_rsr</string>
     <string name="action_info">action_info</string>
+    <string name="location_title_text">Uw Locatie:</string>
     <string name="main_btn_txt">RSR Pechhulp</string>
     <string name="dialing_button">Bel RSR nu</string>
-    <string name="location_title">Uw Locatie:</string>
     <string name="address_info">R.Cap. Aresta 200,4440/452 \n\t\t\tValongo, Portugal</string>
     <string name="location_info">Onthoud deze locatie voor het telefoongesprek</string>
 
@@ -35,10 +35,21 @@
     <string name="negative_button">Cancel</string>
     <string name="positive_button">OK</string>
 
-    <!-- Popup dialog strings !-->
-    <string name="cancel_popul_btn">Annuleren</string>
-    <string name="dialog_title">Belkosten</string>
-    <string name="dialog_content">Voor dit nummer betaalt u uw \n \t\tgebruikelijke belkosten.</string>
-    <string name="dialog_calling_btn">Bel nu</string>
+    <!-- Check location permission !-->
+    <string name="require_permission_message">Location permission needed!</string>
+    <string name="require_location_permission_message">This app needs the Location permission,
+        please accept to use location functionality</string>
+    <string name="permission_denied_toast_message">permission denied</string>
+
+    <!-- Popup dialog messages !-->
+    <string name="cancel_popup_txt">Annuleren</string>
+    <string name="dialog_text_title">Belkosten</string>
+    <string name="dialog_text_content">Voor dit nummer betaalt u uw \n \t\tgebruikelijke belkosten.</string>
+    <string name="dialog_text_calling">Bel nu</string>
+
+    <!-- Alert dialog GPS text !-->
+    <string name="gps_disabled_message">GPS is disabled on your device, enabled it to use this service!</string>
+    <string name="positive_btn_message">Open settings</string>
+
 
 </resources>

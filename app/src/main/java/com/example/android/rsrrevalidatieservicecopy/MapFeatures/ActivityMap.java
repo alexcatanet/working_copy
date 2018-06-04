@@ -1,8 +1,9 @@
-package com.example.android.rsrrevalidatieservicecopy;
+package com.example.android.rsrrevalidatieservicecopy.MapFeatures;
 
 import android.Manifest;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -15,6 +16,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Looper;
+import android.provider.Settings;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.NavUtils;
 import android.support.v4.content.ContextCompat;
@@ -28,6 +30,8 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.example.android.rsrrevalidatieservicecopy.R;
+import com.example.android.rsrrevalidatieservicecopy.Adapter.CustomInfoWindowAdapter;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
@@ -47,13 +51,6 @@ import java.util.List;
 
 public class ActivityMap extends AppCompatActivity implements OnMapReadyCallback {
 
-    private List<Address> addresses;
-    private Geocoder geoCoder;
-
-    LocationResult mLocationResult;
-
-    private String currentAddress;
-
     private GoogleMap mGoogleMap;
     SupportMapFragment mapFrag;
     LocationRequest mLocationRequest;
@@ -70,6 +67,8 @@ public class ActivityMap extends AppCompatActivity implements OnMapReadyCallback
         }
         setContentView(R.layout.activity_map);
 
+        showGPSAlert(ActivityMap.this);
+
         mapFrag = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         mapFrag.getMapAsync(this);
 
@@ -78,8 +77,14 @@ public class ActivityMap extends AppCompatActivity implements OnMapReadyCallback
         }
 
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
+
         final Button callingButton = findViewById(R.id.calling_btn);
 
+        /*
+          Build the popup dialog which it have 2 main functions:
+          Asking for the user to remember the current mLastLocation
+          Dialing the customer's service of RSR pechhulp.
+         */
         final View.OnClickListener onClickListener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -154,7 +159,7 @@ public class ActivityMap extends AppCompatActivity implements OnMapReadyCallback
         mGoogleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
 
         mLocationRequest = new LocationRequest();
-        mLocationRequest.setInterval(1000); // two minute interval
+        mLocationRequest.setInterval(1000); // one second
         mLocationRequest.setFastestInterval(1000);
         mLocationRequest.setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY);
 
@@ -162,16 +167,15 @@ public class ActivityMap extends AppCompatActivity implements OnMapReadyCallback
             if (ContextCompat.checkSelfPermission(this,
                     Manifest.permission.ACCESS_FINE_LOCATION)
                     == PackageManager.PERMISSION_GRANTED) {
+
                 //Location Permission already granted
                 mFusedLocationClient.requestLocationUpdates(mLocationRequest, mLocationCallback, Looper.myLooper());
-
             } else {
                 //Request Location Permission
                 checkLocationPermission();
             }
         } else {
             mFusedLocationClient.requestLocationUpdates(mLocationRequest, mLocationCallback, Looper.myLooper());
-
         }
     }
 
@@ -180,6 +184,7 @@ public class ActivityMap extends AppCompatActivity implements OnMapReadyCallback
         public void onLocationResult(LocationResult locationResult) {
             List<Location> locationList = locationResult.getLocations();
             if (locationList.size() > 0) {
+
                 //The last location in the list is the newest
                 Location location = locationList.get(locationList.size() - 1);
                 Log.i("MapsActivity", "Location: " + location.getLatitude() + " " + location.getLongitude());
@@ -189,30 +194,26 @@ public class ActivityMap extends AppCompatActivity implements OnMapReadyCallback
                 }
                 mGoogleMap.setInfoWindowAdapter(new CustomInfoWindowAdapter(ActivityMap.this));
 
-
                 //Place current location marker
                 LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
                 MarkerOptions markerOptions = new MarkerOptions();
                 markerOptions.position(latLng);
-                markerOptions.title("Uw locatie");
+                markerOptions.title("Uw Locatie:");
                 markerOptions.icon(BitmapDescriptorFactory.fromResource(R.drawable.map_marker_mini));
 
                 Geocoder geocoder = new Geocoder(getBaseContext());
                 List<Address> addresses = null;
-                String addressText = "";
-
-                double latitude = latLng.latitude;
-                double longitude = latLng.longitude;
                 try {
-                    addresses = geocoder.getFromLocation(latitude, longitude, 1);
+                    addresses = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
+                String addressText = "";
+
                 if (addresses != null && addresses.size() > 0) {
                     Address address = addresses.get(0);
 
                     addressText = String.format("%s", address.getAddressLine(0));
-                    currentAddress = addressText;
                 }
                 markerOptions.snippet(addressText);
 
@@ -221,8 +222,7 @@ public class ActivityMap extends AppCompatActivity implements OnMapReadyCallback
 
                 mCurrLocationMarker.showInfoWindow();
 
-
-                //move map camera
+                // Moving map camera
                 mGoogleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 11));
             }
         }
@@ -234,17 +234,15 @@ public class ActivityMap extends AppCompatActivity implements OnMapReadyCallback
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED) {
 
-            // Should we show an explanation?
             if (ActivityCompat.shouldShowRequestPermissionRationale(this,
                     Manifest.permission.ACCESS_FINE_LOCATION)) {
 
-                // Show an explanation to the user *asynchronously* -- don't block
-                // this thread waiting for the user's response! After the user
-                // sees the explanation, try again to request the permission.
+                // This thread waiting for the user's response!
+                // After the user sees the explanation, try again to request the permission.
                 new AlertDialog.Builder(this)
-                        .setTitle("Location Permission Needed")
-                        .setMessage("This app needs the Location permission, please accept to use location functionality")
-                        .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        .setTitle(R.string.require_permission_message)
+                        .setMessage(R.string.require_location_permission_message)
+                        .setPositiveButton(R.string.positive_button, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
                                 //Prompt the user once explanation has been shown
@@ -255,13 +253,44 @@ public class ActivityMap extends AppCompatActivity implements OnMapReadyCallback
                         })
                         .create()
                         .show();
-
             } else {
-                // No explanation needed, we can request the permission.
+                // We can request the permission.
                 ActivityCompat.requestPermissions(this,
                         new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
                         MY_PERMISSIONS_REQUEST_LOCATION);
             }
+        }
+    }
+
+    // Show Alert Dialog to enable GPS
+    protected void showGPSAlert(final Context context) {
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
+
+        // Check if location services are enabled
+        String locationProvider = Settings.Secure.getString(getContentResolver(),
+                Settings.Secure.LOCATION_PROVIDERS_ALLOWED);
+        if (locationProvider == null || locationProvider.equals("")) {
+            alertDialogBuilder.setMessage(R.string.gps_disabled_message)
+                    .setCancelable(false).setPositiveButton(R.string.positive_btn_message,
+                    new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+
+                            // Calling an intent to perform an activity in order to open source settings
+                            Intent callGPSSettingIntent = new Intent(Settings.
+                                    ACTION_LOCATION_SOURCE_SETTINGS);
+                            context.startActivity(callGPSSettingIntent);
+                        }
+                    });
+            alertDialogBuilder.setNegativeButton(R.string.negative_button,
+                    new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.cancel();
+                        }
+                    });
+            AlertDialog alert = alertDialogBuilder.create();
+            alert.show();
         }
     }
 
@@ -274,8 +303,7 @@ public class ActivityMap extends AppCompatActivity implements OnMapReadyCallback
                 if (grantResults.length > 0
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
 
-                    // permission was granted, yay! Do the
-                    // location-related task you need to do.
+                    // Permission was granted, now we can proceed to work!
                     if (ContextCompat.checkSelfPermission(this,
                             Manifest.permission.ACCESS_FINE_LOCATION)
                             == PackageManager.PERMISSION_GRANTED) {
@@ -283,18 +311,12 @@ public class ActivityMap extends AppCompatActivity implements OnMapReadyCallback
                         mFusedLocationClient.requestLocationUpdates(mLocationRequest, mLocationCallback, Looper.myLooper());
                         mGoogleMap.setMyLocationEnabled(true);
                     }
-
                 } else {
 
-                    // permission denied, boo! Disable the
-                    // functionality that depends on this permission.
-                    Toast.makeText(this, "permission denied", Toast.LENGTH_LONG).show();
+                    // Permission denied!
+                    Toast.makeText(this, R.string.permission_denied_toast_message, Toast.LENGTH_LONG).show();
                 }
-                return;
             }
-
-            // other 'case' lines to check for other
-            // permissions this app might request
         }
     }
 
@@ -307,6 +329,12 @@ public class ActivityMap extends AppCompatActivity implements OnMapReadyCallback
                 return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        showGPSAlert(ActivityMap.this);
     }
 }
 

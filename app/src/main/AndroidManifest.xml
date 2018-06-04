@@ -41,7 +41,7 @@
             android:value="@integer/google_play_services_version" />
 
         <activity
-            android:name=".ActivitySplash"
+            android:name=".MainActivity.ActivitySplash"
             android:theme="@style/IntroPage">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -50,29 +50,29 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".MainActivity"
+            android:name=".MainActivity.MainActivity"
             android:screenOrientation="portrait" />
 
         <!-- A child of the main activity -->
         <activity
-            android:name=".ActivityInfo"
+            android:name=".InformationAboutRsr.ActivityInfo"
             android:label="@string/activityInfo_class"
-            android:parentActivityName=".MainActivity"
+            android:parentActivityName=".MainActivity.MainActivity"
             android:screenOrientation="portrait" />
         <!-- Parent activity meta-data to support 4.0 and lower -->
         <meta-data
             android:name="android.support.PARENT_ACTIVITY"
-            android:value="com.example.android.rsrrevalidatieservicecopy.MainActivity" />
+            android:value="com.example.android.rsrrevalidatieservicecopy.MainActivity.MainActivity" />
 
         <!-- A child of the main activity -->
         <activity
-            android:name=".ActivityMap"
+            android:name=".MapFeatures.ActivityMap"
             android:label="@string/activityMap_class"
-            android:parentActivityName=".MainActivity"
+            android:parentActivityName=".MainActivity.MainActivity"
             android:screenOrientation="portrait" />
         <!-- Parent activity meta-data to support 4.0 and lower -->
         <meta-data
             android:name="android.support.PARENT_ACTIVITY"
-            android:value="com.example.android.rsrrevalidatieservicecopy.MainActivity" />
+            android:value="com.example.android.rsrrevalidatieservicecopy.MainActivity.MainActivity" />
     </application>
 </manifest>

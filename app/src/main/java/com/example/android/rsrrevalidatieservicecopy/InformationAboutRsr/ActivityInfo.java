@@ -1,10 +1,12 @@
-package com.example.android.rsrrevalidatieservicecopy;
+package com.example.android.rsrrevalidatieservicecopy.InformationAboutRsr;
 
 
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
+
+import com.example.android.rsrrevalidatieservicecopy.R;
 
 public class ActivityInfo extends AppCompatActivity {
 
