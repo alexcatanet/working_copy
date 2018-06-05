@@ -17,7 +17,7 @@ public class ActivityInfo extends AppCompatActivity {
         if (actionBar != null) {
             actionBar.setHomeAsUpIndicator(R.drawable.menu_arrow);
         }
-        setContentView(R.layout.activity_info);
+        setContentView(R.layout.info_activity);
         if (getActionBar() != null) {
             getActionBar().setDisplayHomeAsUpEnabled(true);
         }

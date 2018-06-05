@@ -16,9 +16,16 @@
     <!-- Divider line-->
     <style name="Divider">
         <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">8dp</item>
+        <item name="android:layout_marginTop">395dp</item>
+        <item name="android:background">#0092BB</item>
+    </style>
+
+    <style name="Divider_normal_size">
+        <item name="android:layout_width">fill_parent</item>
         <item name="android:layout_height">3dp</item>
         <item name="android:layout_marginTop">0dp</item>
-        <item name="android:background">#13d7f1</item>
+        <item name="android:background">#0092BB</item>
     </style>
 
     <!-- Customising the main button -->

@@ -32,4 +32,5 @@
         android:text="@string/dialing_button"
         android:textAllCaps="false"
         android:textColor="@android:color/white" />
+
 </RelativeLayout>

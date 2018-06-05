@@ -8,7 +8,7 @@
     <string name="location_title_text">Uw Locatie:</string>
     <string name="main_btn_txt">RSR Pechhulp</string>
     <string name="dialing_button">Bel RSR nu</string>
-    <string name="address_info">R.Cap. Aresta 200,4440/452 \n\t\t\tValongo, Portugal</string>
+    <string name="address_info">R.Vap. Aresta 100,9994/452 \n\t\t\Nicoreni, France</string>
     <string name="location_info">Onthoud deze locatie voor het telefoongesprek</string>
 
     <!-- Android labels-->
@@ -51,5 +51,10 @@
     <string name="gps_disabled_message">GPS is disabled on your device, enabled it to use this service!</string>
     <string name="positive_btn_message">Open settings</string>
 
+    <!-- Map activity tablet messages !-->
+    <string name="contact_us_message">Neem contact op met RSR Nederland</string>
+    <string name="tel_number_text">0900–7788990</string>
+    <string name="tariff_message">9,4 cent per gesprek plus, 2,8 cent per minuut, plus uw
+        gebruikelijke belkosten</string>
 
 </resources>

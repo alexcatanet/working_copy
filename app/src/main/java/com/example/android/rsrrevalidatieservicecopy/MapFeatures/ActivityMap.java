@@ -65,7 +65,7 @@ public class ActivityMap extends AppCompatActivity implements OnMapReadyCallback
         if (actionBar != null) {
             actionBar.setHomeAsUpIndicator(R.drawable.menu_arrow);
         }
-        setContentView(R.layout.activity_map);
+        setContentView(R.layout.map_activity);
 
         showGPSAlert(ActivityMap.this);
 
@@ -82,49 +82,55 @@ public class ActivityMap extends AppCompatActivity implements OnMapReadyCallback
 
         /*
           Build the popup dialog which it have 2 main functions:
-          Asking for the user to remember the current mLastLocation
+          Asking the user to remember the current location
           Dialing the customer's service of RSR pechhulp.
          */
         final View.OnClickListener onClickListener = new View.OnClickListener() {
+            boolean tabletSize = getResources().getBoolean(R.bool.isTablet);
+
             @Override
             public void onClick(View v) {
                 switch (v.getId()) {
                     case R.id.calling_btn:
+                        if (tabletSize) { // Checking if this is a tablet dev.
+                            dialContactPhone();
+                        } else {
 
-                        final Dialog dialog = new Dialog(ActivityMap.this);
-                        dialog.requestWindowFeature(Window.FEATURE_LEFT_ICON);
-                        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-                        dialog.setContentView(R.layout.popup_dialog);
-                        Button cancelBtn = dialog.findViewById(R.id.cancel_btn);
-                        Button dialingBtn = dialog.findViewById(R.id.dialog_btn_dialing);
+                            final Dialog dialog = new Dialog(ActivityMap.this);
+                            dialog.requestWindowFeature(Window.FEATURE_LEFT_ICON);
+                            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                            dialog.setContentView(R.layout.popup_dialog);
+                            Button cancelBtn = dialog.findViewById(R.id.cancel_btn);
+                            Button dialingBtn = dialog.findViewById(R.id.dialog_btn_dialing);
 
-                        View.OnClickListener onClickListener1 = new View.OnClickListener() {
-                            public void onClick(View v) {
-                                switch (v.getId()) {
-                                    case R.id.cancel_btn:
-                                        dialog.dismiss();
-                                        break;
-                                    case R.id.dialog_btn_dialing:
-                                        dialContactPhone();
-                                        break;
+                            View.OnClickListener onClickListener1 = new View.OnClickListener() {
+                                public void onClick(View v) {
+                                    switch (v.getId()) {
+                                        case R.id.cancel_btn:
+                                            dialog.dismiss();
+                                            break;
+                                        case R.id.dialog_btn_dialing:
+                                            dialContactPhone();
+                                            break;
+                                    }
                                 }
-                            }
-                        };
+                            };
 
-                        cancelBtn.setOnClickListener(onClickListener1);
-                        dialingBtn.setOnClickListener(onClickListener1);
+                            cancelBtn.setOnClickListener(onClickListener1);
+                            dialingBtn.setOnClickListener(onClickListener1);
 
-                        dialog.setCanceledOnTouchOutside(false);
+                            dialog.setCanceledOnTouchOutside(false);
 
-                        Window window = dialog.getWindow();
-                        WindowManager.LayoutParams layoutParams = window.getAttributes();
+                            Window window = dialog.getWindow();
+                            WindowManager.LayoutParams layoutParams = window.getAttributes();
 
-                        layoutParams.gravity = Gravity.END;
-                        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-                        window.setAttributes(layoutParams);
+                            layoutParams.gravity = Gravity.END;
+                            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                            window.setAttributes(layoutParams);
 
-                        dialog.show();
-                        break;
+                            dialog.show();
+                            break;
+                        }
                 }
             }
         };

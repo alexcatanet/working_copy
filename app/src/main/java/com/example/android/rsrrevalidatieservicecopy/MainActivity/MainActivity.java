@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.main_activity);
 
         Button button = findViewById(R.id.RSR_btn);
         button.setOnClickListener(new View.OnClickListener() {
@@ -42,6 +42,19 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        // If the user is navigating with a tablet, then linking the second button.
+        boolean tabletSize = getResources().getBoolean(R.bool.isTablet);
+        if (tabletSize) {
+            Button overRsrBtn = findViewById(R.id.over_btn);
+            overRsrBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(MainActivity.this, ActivityInfo.class);
+                    startActivity(intent);
+                }
+            });
+        }
     }
 
     @Override
@@ -121,8 +134,13 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_info, menu);
-        return super.onCreateOptionsMenu(menu);
+        boolean tabletSize = getResources().getBoolean(R.bool.isTablet);
+        if (tabletSize) {
+            return false;
+        } else {
+            getMenuInflater().inflate(R.menu.menu_info, menu);
+            return super.onCreateOptionsMenu(menu);
+        }
     }
 
     @Override

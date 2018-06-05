@@ -60,5 +60,6 @@
             android:text="@string/dialog_text_calling"
             android:textAllCaps="false"
             android:textColor="@color/whiteText" />
+
     </LinearLayout>
 </RelativeLayout>

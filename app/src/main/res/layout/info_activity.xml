@@ -11,7 +11,7 @@
         android:contentDescription="@string/info_background_im"
         android:src="@drawable/info_bg" />
 
-    <View style="@style/Divider" />
+    <View style="@style/Divider_normal_size" />
 
     <TextView
         android:layout_width="wrap_content"
