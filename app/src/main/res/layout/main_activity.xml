@@ -13,6 +13,11 @@
         android:scaleType="centerCrop"
         android:src="@drawable/main_bg" />
 
+    <View
+        style="@style/ActionBar_Divider">
+
+    </View>
+
     <Button
         android:id="@+id/RSR_btn"
         android:layout_width="280dp"
@@ -34,5 +39,9 @@
         android:text="@string/main_btn_txt"
         android:textAllCaps="false"
         android:textColor="@android:color/white" />
+
+    <View
+        style="@style/Button_Divider">
+    </View>
 
 </RelativeLayout>

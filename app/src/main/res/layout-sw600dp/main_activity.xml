@@ -13,9 +13,10 @@
         android:scaleType="centerCrop"
         android:src="@drawable/main_bg" />
 
+    <View style="@style/ActionBar_Divider" />
+
     <Button
         android:id="@+id/RSR_btn"
-        android:textSize="18sp"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
@@ -34,7 +35,10 @@
         android:paddingStart="@dimen/buttons_padding_start"
         android:text="@string/main_btn_txt"
         android:textAllCaps="false"
-        android:textColor="@android:color/white" />
+        android:textColor="@android:color/white"
+        android:textSize="18sp" />
+
+    <View style="@style/Button_Divider_sw600dp" />
 
     <Button
         android:id="@+id/over_btn"
@@ -54,10 +58,13 @@
         android:paddingLeft="@dimen/buttons_padding_start"
         android:paddingRight="@dimen/buttons_padding_end"
         android:paddingStart="@dimen/buttons_padding_start"
-        android:text="@string/main_btn_txt"
-        android:textSize="18sp"
+        android:text="@string/second_btn_rsr"
         android:textAllCaps="false"
-        android:textColor="@android:color/white" />
+        android:textColor="@android:color/white"
+        android:textSize="18sp" />
+
+    <View
+        style="@style/Second_Button_Divider_sw600dp"/>
 
 </RelativeLayout>
 

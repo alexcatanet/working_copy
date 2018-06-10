@@ -2,6 +2,7 @@ package com.example.android.rsrrevalidatieservicecopy.Adapter;
 
 
 import android.content.Context;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.RelativeLayout;
@@ -14,10 +15,9 @@ import com.google.android.gms.maps.model.Marker;
 public class CustomInfoWindowAdapter implements GoogleMap.InfoWindowAdapter {
     private final View mWindow;
 
+
     public CustomInfoWindowAdapter(Context context) {
         mWindow = LayoutInflater.from(context).inflate(R.layout.info_window, null);
-        mWindow.setLayoutParams(new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams
-                .WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT));
     }
 
     private void renderWindowText(Marker marker, View view) {
@@ -25,14 +25,14 @@ public class CustomInfoWindowAdapter implements GoogleMap.InfoWindowAdapter {
         TextView tvTitle = view.findViewById(R.id.text_location);
 
         if (!title.equals("")) {
-            tvTitle.setText(title);
+            tvTitle.setText(R.string.location_title_text);
         }
 
-        String snippet = marker.getSnippet();
+         String snippet = marker.getSnippet();
         TextView tvSnippet = view.findViewById(R.id.address_info);
 
         if (!snippet.equals("")) {
-            tvSnippet.setText(snippet);
+            tvSnippet.setText(R.string.address_info);
         }
 
         String snippet2 = marker.getSnippet();
@@ -45,6 +45,7 @@ public class CustomInfoWindowAdapter implements GoogleMap.InfoWindowAdapter {
 
     @Override
     public View getInfoWindow(Marker marker) {
+
         renderWindowText(marker, mWindow);
         return mWindow;
     }

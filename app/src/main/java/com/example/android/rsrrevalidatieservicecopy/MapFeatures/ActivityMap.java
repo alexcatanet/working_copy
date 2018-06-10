@@ -8,6 +8,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.graphics.Rect;
 import android.graphics.drawable.ColorDrawable;
 import android.location.Address;
 import android.location.Geocoder;
@@ -23,11 +24,13 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.PopupWindow;
 import android.widget.Toast;
 
 import com.example.android.rsrrevalidatieservicecopy.R;
@@ -124,7 +127,7 @@ public class ActivityMap extends AppCompatActivity implements OnMapReadyCallback
                             Window window = dialog.getWindow();
                             WindowManager.LayoutParams layoutParams = window.getAttributes();
 
-                            layoutParams.gravity = Gravity.END;
+                            layoutParams.gravity = Gravity.BOTTOM;
                             dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                             window.setAttributes(layoutParams);
 
@@ -164,9 +167,11 @@ public class ActivityMap extends AppCompatActivity implements OnMapReadyCallback
         mGoogleMap = googleMap;
         mGoogleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
 
+        this.mGoogleMap.setInfoWindowAdapter(new CustomInfoWindowAdapter(ActivityMap.this));
+
         mLocationRequest = new LocationRequest();
-        mLocationRequest.setInterval(1000); // one second
-        mLocationRequest.setFastestInterval(1000);
+        mLocationRequest.setInterval(12000); // one second
+        mLocationRequest.setFastestInterval(12000);
         mLocationRequest.setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY);
 
         if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -198,13 +203,12 @@ public class ActivityMap extends AppCompatActivity implements OnMapReadyCallback
                 if (mCurrLocationMarker != null) {
                     mCurrLocationMarker.remove();
                 }
-                mGoogleMap.setInfoWindowAdapter(new CustomInfoWindowAdapter(ActivityMap.this));
 
                 //Place current location marker
                 LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
                 MarkerOptions markerOptions = new MarkerOptions();
                 markerOptions.position(latLng);
-                markerOptions.title("Uw Locatie:");
+                markerOptions.title(String.valueOf(R.string.location_title_text));
                 markerOptions.icon(BitmapDescriptorFactory.fromResource(R.drawable.map_marker_mini));
 
                 Geocoder geocoder = new Geocoder(getBaseContext());
@@ -219,7 +223,7 @@ public class ActivityMap extends AppCompatActivity implements OnMapReadyCallback
                 if (addresses != null && addresses.size() > 0) {
                     Address address = addresses.get(0);
 
-                    addressText = String.format("%s", address.getAddressLine(0));
+                    addressText = address.getAddressLine(0);
                 }
                 markerOptions.snippet(addressText);
 
@@ -229,7 +233,7 @@ public class ActivityMap extends AppCompatActivity implements OnMapReadyCallback
                 mCurrLocationMarker.showInfoWindow();
 
                 // Moving map camera
-                mGoogleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 11));
+                mGoogleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 16));
             }
         }
     };

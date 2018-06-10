@@ -7,6 +7,7 @@
     <string name="action_info">action_info</string>
     <string name="location_title_text">Uw Locatie:</string>
     <string name="main_btn_txt">RSR Pechhulp</string>
+    <string name="second_btn_rsr">Over RSR</string>
     <string name="dialing_button">Bel RSR nu</string>
     <string name="address_info">R.Vap. Aresta 100,9994/452 \n\t\t\Nicoreni, France</string>
     <string name="location_info">Onthoud deze locatie voor het telefoongesprek</string>
@@ -56,5 +57,6 @@
     <string name="tel_number_text">0900–7788990</string>
     <string name="tariff_message">9,4 cent per gesprek plus, 2,8 cent per minuut, plus uw
         gebruikelijke belkosten</string>
+    <string name="transparent_background_dialog_img">transparent_background_dialog_img</string>
 
 </resources>

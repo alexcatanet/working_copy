@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
@@ -10,7 +10,7 @@
 
     <!-- Disabling the ActionBar of the first intro page -->
     <style name="IntroPage" parent="Theme.AppCompat.Light.NoActionBar">
-
+        <item name="android:statusBarColor" tools:targetApi="lollipop">@android:color/black</item>
     </style>
 
     <!-- Divider line-->
@@ -20,6 +20,54 @@
         <item name="android:layout_marginTop">395dp</item>
         <item name="android:background">#0092BB</item>
     </style>
+
+    <!-- Creating a blue line below the MainActivity button-->
+    <style name="Button_Divider">
+        <item name="android:background">@color/buttonLine</item>
+        <item name="android:layout_width">280dp</item>
+        <item name="android:layout_height">3dp</item>
+        <item name="android:layout_alignParentBottom">true</item>
+        <item name="android:layout_centerHorizontal">true</item>
+        <item name="android:layout_marginBottom">14dp</item>
+    </style>
+
+    <!-- Creating a blue line below the MainActivity button for large screen-->
+    <style name="Button_Divider_sw600dp">
+        <item name="android:background">@color/buttonLine</item>
+        <item name="android:layout_width">300dp</item>
+        <item name="android:layout_height">5dp</item>
+        <item name="android:layout_alignParentBottom">true</item>
+        <item name="android:layout_centerHorizontal">true</item>
+        <item name="android:layout_marginBottom">149dp</item>
+    </style>
+
+    <!-- Creating a blue line below the MainActivity button for large screen-->
+    <style name="Second_Button_Divider_sw600dp">
+        <item name="android:background">@color/buttonLine</item>
+        <item name="android:layout_width">300dp</item>
+        <item name="android:layout_height">5dp</item>
+        <item name="android:layout_alignParentBottom">true</item>
+        <item name="android:layout_centerHorizontal">true</item>
+        <item name="android:layout_marginBottom">79dp</item>
+    </style>
+
+    <!-- Creating a blue line below the popup_dialog button-->
+    <style name="Button_Divider_Call_Popup">
+        <item name="android:background">@color/buttonLine</item>
+        <item name="android:layout_width">270dp</item>
+        <item name="android:layout_height">2dp</item>
+        <item name="android:layout_alignParentBottom">true</item>
+        <item name="android:layout_centerHorizontal">true</item>
+        <item name="android:layout_marginBottom">14dp</item>
+    </style>
+
+    <!-- Creating a blue line below the MainActivity button-->
+    <style name="ActionBar_Divider">
+        <item name="android:background">@color/buttonLine</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">2dp</item>
+    </style>
+
 
     <style name="Divider_normal_size">
         <item name="android:layout_width">fill_parent</item>

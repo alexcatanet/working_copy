@@ -12,6 +12,10 @@
         android:layout_height="match_parent"
         tools:context=".MapFeatures.ActivityMap" />
 
+    <View style="@style/ActionBar_Divider">
+
+    </View>
+
     <Button
         android:id="@+id/calling_btn"
         android:layout_width="280dp"
@@ -32,5 +36,9 @@
         android:text="@string/dialing_button"
         android:textAllCaps="false"
         android:textColor="@android:color/white" />
+
+    <View style="@style/Button_Divider">
+
+    </View>
 
 </RelativeLayout>

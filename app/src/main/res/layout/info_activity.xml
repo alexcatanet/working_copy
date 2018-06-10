@@ -4,6 +4,8 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+    <View style="@style/ActionBar_Divider" />
+
     <ImageView
         android:id="@+id/im_information"
         android:layout_width="wrap_content"

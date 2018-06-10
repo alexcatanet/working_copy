@@ -9,22 +9,16 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
     <!-- Allowing an application to initiate a phone call without going through the Dialer UI -->
-    <uses-permission android:name="android.permision.CALL_PHONE">
-
-    </uses-permission>
+    <uses-permission android:name="android.permission.CALL_PHONE" />
 
     <!-- Allows applications to open network sockets. -->
-    <uses-permission android:name="android.permission.CALL_PHONE" />
     <uses-permission android:name="android.permission.INTERNET" />
 
     <!-- Allows applications to access information about networks -->
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <!-- Allows applications to access information about Wi-Fi networks. -->
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-
-    <!-- Allows an application to write to external storage. -->
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
 
     <application
         android:allowBackup="true"

@@ -12,13 +12,13 @@
 -->
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="250dp"
-    android:layout_height="145dp">
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
 
     <LinearLayout
         android:id="@+id/popup_window"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="220dp"
+        android:layout_height="140dp"
         android:background="@drawable/popup_bg"
         android:orientation="vertical"
         tools:ignore="UselessParent">
@@ -29,7 +29,6 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:paddingTop="5dp"
-            android:text="@string/location_title_text"
             android:textColor="@android:color/white"
             android:textSize="16sp"
             android:textStyle="bold" />
@@ -38,7 +37,7 @@
             android:id="@+id/address_info"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
+            android:gravity="center_horizontal"
             android:paddingTop="10dp"
             android:text="@string/address_info"
             android:textColor="@color/whiteText" />
@@ -47,6 +46,7 @@
             android:id="@+id/remember_location"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
             android:paddingTop="10dp"
             android:text="@string/location_info"
             android:textColor="@color/whiteText" />
