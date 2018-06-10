@@ -8,7 +8,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
-import android.graphics.Rect;
 import android.graphics.drawable.ColorDrawable;
 import android.location.Address;
 import android.location.Geocoder;
@@ -24,13 +23,11 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
-import android.widget.PopupWindow;
 import android.widget.Toast;
 
 import com.example.android.rsrrevalidatieservicecopy.R;
@@ -148,8 +145,11 @@ public class ActivityMap extends AppCompatActivity implements OnMapReadyCallback
                     .permission.CALL_PHONE}, 256);
             return;
         }
+        String telephone = getResources().getString(R.string.telephone);
+        String telNumber = getResources().getString(R.string.tel_number_text);
+
         startActivity(new Intent(Intent.ACTION_CALL, Uri.fromParts
-                ("tel", "+31 900 7788990", null)));
+                (telephone, telNumber, null)));
     }
 
     @Override
@@ -198,7 +198,9 @@ public class ActivityMap extends AppCompatActivity implements OnMapReadyCallback
 
                 //The last location in the list is the newest
                 Location location = locationList.get(locationList.size() - 1);
-                Log.i("MapsActivity", "Location: " + location.getLatitude() + " " + location.getLongitude());
+                Log.i(getResources().getString(R.string.class_tag_text), getResources()
+                        .getString(R.string.location_msg) + location.getLatitude() + " "
+                        + location.getLongitude());
                 mLastLocation = location;
                 if (mCurrLocationMarker != null) {
                     mCurrLocationMarker.remove();

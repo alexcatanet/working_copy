@@ -53,10 +53,15 @@
     <string name="positive_btn_message">Open settings</string>
 
     <!-- Map activity tablet messages !-->
+    <string name="telephone">tel</string>
     <string name="contact_us_message">Neem contact op met RSR Nederland</string>
-    <string name="tel_number_text">0900–7788990</string>
+    <string name="tel_number_text">+31 900–7788990</string>
     <string name="tariff_message">9,4 cent per gesprek plus, 2,8 cent per minuut, plus uw
         gebruikelijke belkosten</string>
     <string name="transparent_background_dialog_img">transparent_background_dialog_img</string>
+
+    <!-- Log information for ActivityMap class !-->
+    <string name="class_tag_text">MapsActivity</string>
+    <string name="location_msg">Location:</string>
 
 </resources>
