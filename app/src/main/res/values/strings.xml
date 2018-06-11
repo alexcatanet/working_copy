@@ -32,7 +32,7 @@
     <string name="gps_not_enabled">Your GPS service is not enable, please turn on your location!</string>
     <string name="location_settings">Open your location settings!</string>
     <string name="alert_dialog_message">Turn on your Wi-Fi or Mobile Data to access this service.
-        Press OK to confirm</string>
+        Press OK to confirm.</string>
     <string name="negative_button">Cancel</string>
     <string name="positive_button">OK</string>
 

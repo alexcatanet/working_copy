@@ -12,6 +12,8 @@ import android.graphics.drawable.ColorDrawable;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -180,13 +182,15 @@ public class ActivityMap extends AppCompatActivity implements OnMapReadyCallback
                     == PackageManager.PERMISSION_GRANTED) {
 
                 //Location Permission already granted
-                mFusedLocationClient.requestLocationUpdates(mLocationRequest, mLocationCallback, Looper.myLooper());
+                mFusedLocationClient.requestLocationUpdates(mLocationRequest, mLocationCallback,
+                        Looper.myLooper());
             } else {
                 //Request Location Permission
                 checkLocationPermission();
             }
         } else {
-            mFusedLocationClient.requestLocationUpdates(mLocationRequest, mLocationCallback, Looper.myLooper());
+            mFusedLocationClient.requestLocationUpdates(mLocationRequest, mLocationCallback,
+                    Looper.myLooper());
         }
     }
 
@@ -216,7 +220,8 @@ public class ActivityMap extends AppCompatActivity implements OnMapReadyCallback
                 Geocoder geocoder = new Geocoder(getBaseContext());
                 List<Address> addresses = null;
                 try {
-                    addresses = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
+                    addresses = geocoder.getFromLocation(location.getLatitude(),
+                            location.getLongitude(), 1);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -254,7 +259,8 @@ public class ActivityMap extends AppCompatActivity implements OnMapReadyCallback
                 new AlertDialog.Builder(this)
                         .setTitle(R.string.require_permission_message)
                         .setMessage(R.string.require_location_permission_message)
-                        .setPositiveButton(R.string.positive_button, new DialogInterface.OnClickListener() {
+                        .setPositiveButton(R.string.positive_button, new DialogInterface
+                                .OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
                                 //Prompt the user once explanation has been shown
@@ -288,7 +294,7 @@ public class ActivityMap extends AppCompatActivity implements OnMapReadyCallback
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
 
-                            // Calling an intent to perform an activity in order to open source settings
+                            // Calling an intent to perform an activity in order to open the source settings
                             Intent callGPSSettingIntent = new Intent(Settings.
                                     ACTION_LOCATION_SOURCE_SETTINGS);
                             context.startActivity(callGPSSettingIntent);
@@ -299,11 +305,54 @@ public class ActivityMap extends AppCompatActivity implements OnMapReadyCallback
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             dialog.cancel();
+                            ActivityMap.this.finish();
                         }
                     });
             AlertDialog alert = alertDialogBuilder.create();
             alert.show();
         }
+    }
+
+    // Building an alert dialog
+    public AlertDialog mBuilder(Context context) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setCancelable(false);
+        builder.setTitle(R.string.alert_dialog_title);
+        builder.setMessage(R.string.alert_dialog_message);
+        builder.setPositiveButton(R.string.positive_button, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+                startActivity(new Intent(Settings.ACTION_SETTINGS));
+            }
+        });
+        builder.setNegativeButton(R.string.negative_button, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+                ActivityMap.this.finish();
+            }
+        });
+        return builder.create();
+    }
+
+    // Checking connection state
+    public boolean isConnected(Context context) {
+        ConnectivityManager connectivityManager = (ConnectivityManager)
+                context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        if (connectivityManager != null) {
+            NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
+
+            if (networkInfo != null && networkInfo.isConnectedOrConnecting()) {
+                android.net.NetworkInfo wifi = connectivityManager.getNetworkInfo
+                        (ConnectivityManager.TYPE_WIFI);
+                android.net.NetworkInfo mobileData = connectivityManager.getNetworkInfo
+                        (ConnectivityManager.TYPE_MOBILE);
+                return (mobileData != null && mobileData.isConnectedOrConnecting()) ||
+                        (wifi != null && wifi.isConnectedOrConnecting());
+            }
+        }
+        return false;
     }
 
     @Override
@@ -320,13 +369,15 @@ public class ActivityMap extends AppCompatActivity implements OnMapReadyCallback
                             Manifest.permission.ACCESS_FINE_LOCATION)
                             == PackageManager.PERMISSION_GRANTED) {
 
-                        mFusedLocationClient.requestLocationUpdates(mLocationRequest, mLocationCallback, Looper.myLooper());
+                        mFusedLocationClient.requestLocationUpdates(mLocationRequest,
+                                mLocationCallback, Looper.myLooper());
                         mGoogleMap.setMyLocationEnabled(true);
                     }
                 } else {
 
                     // Permission denied!
-                    Toast.makeText(this, R.string.permission_denied_toast_message, Toast.LENGTH_LONG).show();
+                    Toast.makeText(this, R.string.permission_denied_toast_message,
+                            Toast.LENGTH_LONG).show();
                 }
             }
         }
@@ -346,6 +397,7 @@ public class ActivityMap extends AppCompatActivity implements OnMapReadyCallback
     @Override
     protected void onResume() {
         super.onResume();
+        if (!isConnected(ActivityMap.this)) mBuilder(ActivityMap.this).show();
         showGPSAlert(ActivityMap.this);
     }
 }

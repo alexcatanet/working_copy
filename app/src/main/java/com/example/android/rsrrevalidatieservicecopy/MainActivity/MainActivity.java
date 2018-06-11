@@ -34,6 +34,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_activity);
 
+        showGPSAlert(MainActivity.this);         // Checking the GPS status
+
         Button button = findViewById(R.id.RSR_btn);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -61,6 +63,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         if (!isConnected(MainActivity.this)) mBuilder(MainActivity.this).show();
+        showGPSAlert(MainActivity.this);
+
         int errorCode = GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(this);
         if (errorCode != ConnectionResult.SUCCESS) {
             final DialogInterface.OnCancelListener cancelListener =
@@ -96,11 +100,12 @@ public class MainActivity extends AppCompatActivity {
         return false;
     }
 
+    // Building an alert dialog
     public AlertDialog mBuilder(Context context) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setCancelable(false);
         builder.setTitle(R.string.alert_dialog_title);
         builder.setMessage(R.string.alert_dialog_message);
-
         builder.setPositiveButton(R.string.positive_button, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
@@ -112,10 +117,43 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.cancel();
-                finishActivity(0);
+                MainActivity.this.finish();
             }
         });
         return builder.create();
+    }
+
+    // Show Alert Dialog to enable GPS
+    protected void showGPSAlert(final Context context) {
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
+
+        // Check if location services are enabled
+        String locationProvider = Settings.Secure.getString(getContentResolver(),
+                Settings.Secure.LOCATION_PROVIDERS_ALLOWED);
+        if (locationProvider == null || locationProvider.equals("")) {
+            alertDialogBuilder.setMessage(R.string.gps_disabled_message)
+                    .setCancelable(false).setPositiveButton(R.string.positive_btn_message,
+                    new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+
+                            // Calling an intent to perform an activity in order to open source settings
+                            Intent callGPSSettingIntent = new Intent(Settings.
+                                    ACTION_LOCATION_SOURCE_SETTINGS);
+                            context.startActivity(callGPSSettingIntent);
+                        }
+                    });
+            alertDialogBuilder.setNegativeButton(R.string.negative_button,
+                    new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.cancel();
+                            MainActivity.this.finish();
+                        }
+                    });
+            AlertDialog alert = alertDialogBuilder.create();
+            alert.show();
+        }
     }
 
     // Check if the user has already granted permission before accessing a resource.
